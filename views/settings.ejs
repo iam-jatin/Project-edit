@@ -1,0 +1,78 @@
+<%- include("partials/header")%>
+    <%- include("partials/navbar")%>
+
+        <div class="shift-heading">Shift Management</div>
+
+        <div class="alert alert-danger mt-3 ml-auto mr-auto container text-center" style="width: 900px;display: none;"
+            role="alert" id="shiftAvailable">
+            There is no shift available
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="row ml-2 mt-4">
+                <div class=" col-lg-3  col-md-5 col-10 d-flex justify-content-around shifts">
+                    <div>No of Shift:<span class="pl-3" id="noOfShift">
+                            <%=shift.length%>
+                        </span></div>
+                    <div>
+                        <i class="fas fa-plus" id="plusBtn" onclick="addShift()"></i>
+                        <i class="fas fa-minus-circle" id="minusBtn" onclick="removeShift()"></i>
+                    </div>
+                </div>
+                <div class="col-lg-8  col-md-5  col-12">
+
+
+                    <div>
+
+                        <form action="/saveShift" method="POST" onsubmit="return validateShift()">
+                            <table class="table table-striped table-dark ">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Shift No.</th>
+                                        <th scope="col">Shift Start Time</th>
+                                        <th scope="col">Shift End Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="shiftBody">
+                                    <%shift.forEach(el=>{%>
+                                        <tr id="row_<%=el.shift_no%>">
+                                            <th>
+                                                <%=el.shift_no%>
+                                            </th>
+                                            <td>
+                                                <label for="appt" class="mr-2"></label>
+                                                <input type="time" id="start_<%=el.shift_no%>"
+                                                    name="start_<%=el.shift_no%>" value="<%=el.start%>"
+                                                    onchange="changeBtn()">
+                                            </td>
+                                            <td>
+                                                <label for="appt" class="mr-2"></label>
+                                                <input type="time" id="finish_<%=el.shift_no%>"
+                                                    name="finish_<%=el.shift_no%>" value="<%=el.finish%>"
+                                                    onchange="changeBtn()">
+                                            </td>
+                                        </tr>
+                                        <%})%>
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="row" name="row" value="<%=shift.length%>">
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" id="addShiftBtn" class="btn btn-primary mr-5 mt-2">Submit</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <script>
+            let i = '<%=shift.length%>';
+
+        </script>
+        <script src="/Js/settings.js"></script>
+        <%- include("partials/footer")%>

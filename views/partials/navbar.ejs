@@ -1,0 +1,59 @@
+<!----- Navbar start-->
+<nav class="navbar navb navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand " href="#">
+        <%=organisation%>
+    </a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active vlink ">
+            <a class="nav-link" href="#">Overall Status <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <button type="button" class="btn">
+
+                    <% if(shift.length!=0){ if(runningShift==0){ %>
+                        <div>No shift Running</div>
+                        <%}else{%>
+                            <div>
+                                Shift <%=runningShift%> Running
+                            </div>
+                            <%}}else{%>
+                                <div>No shift Available</div>
+                                <%}%>
+                </button>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#"><button type="button" class="btn">
+                        <div class="date" id="printDate"></div>
+                    </button></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard"><button type="button" class="btn"><i
+                            class="fas fa-laptop"></i></button></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/settings"><button type="button" class="btn"><i
+                            class="fas fa-cogs"></i></button></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#"><button type="button" class="btn"><i class="fas fa-info"></i></button></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#"><button type="button" class="btn bt"><i
+                            class="fas fa-bell"></i></button></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/auth/logout"><button type="button" class="btn bt"><i
+                            class="fas fa-sign-out-alt"></i></button></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<script src="/Js/Time.js"></script>
+<!----------Navbar End-->

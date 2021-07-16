@@ -1,0 +1,200 @@
+<%- include("partials/header")%>
+    <%- include("partials/navbar")%>
+        <div class="d-flex justify-content-end pr-3">
+            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                <i class="fas fa-plus"></i>
+            </button>
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add SPM</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="addDevice" method="POST">
+                                <div class="form-group row">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Machine Id</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="machineId" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputTExt" class="col-sm-2 col-form-label">Machine Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="machineName" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Machine Type</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="machineType" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Device ID</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="deviceId" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row row1">
+
+                <%machineData.forEach(machine=>{%>
+                    <div class="col-md-6 col-lg-3 card1 " onclick="livePage('<%=machine.Machine_ID%>')">
+                        <div class="m-3">
+                            <div class="modal fade" id="edit_<%=machine.id%>" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content bg-dark">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Update SPM</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="updateDevice" method="POST">
+                                                <input type="hidden" name="id" value="<%=machine.id%>">
+                                                <div class="form-group row">
+                                                    <label for="inputText" class="col-sm-2 col-form-label">Machine
+                                                        Id</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="machineId" value="<%=machine.Machine_ID%>"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputTExt" class="col-sm-2 col-form-label">Machine
+                                                        Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" value="<%=machine.Machine_Name%>"
+                                                            name="machineName" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputText" class="col-sm-2 col-form-label">Machine
+                                                        Type</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" value="<%=machine.Machine_Type%>"
+                                                            name="machineType" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputText" class="col-sm-2 col-form-label">Device
+                                                        ID</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" value="<%=machine.Device_ID%>" name="deviceId"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+    
+    
+                            <div class="modal fade" id="deleteMachine_<%=machine.id%>" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-dark">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete SPM</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to Delete the machine?
+                                        </div>
+                                        <form action="deleteDevice" method="POST">
+                                            <input type="hidden" value="<%=machine.id%>" name="id">
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Yes</button>
+                                                <button type="reset" class="btn btn-primary"
+                                                    data-dismiss="modal">No</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="row row2 justify-content-between align-items-center">
+                                <div class="col d-flex">
+                                    <div class="font-weight-bold heading">
+                                        <%=machine.Machine_Name%>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a data-toggle="modal" data-target="#edit_<%=machine.id%>">
+                                        <i class="fas fa-edit fa-sm"></i></a>
+    
+                                    <button class="btn" type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#deleteMachine_<%=machine.id%>"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+    
+                            <div class="row row3 align-items-center ">
+                                <div class="col col-md-6">
+                                    <div class="text">Total Count</div>
+                                    <div class="text-success font-weight-bold mt-1">
+                                        <%=machine.total%>
+                                    </div>
+                                    <div class="d-flex ">
+                                        <div class="mr-2 mt-3">
+                                            <div class="text">Rejection Count</div>
+                                            <div class="text-danger font-weight-bold mt-1">
+                                                <%=machine.rejection%>
+                                            </div>
+                                        </div>
+                                        <div class="ml-2 mt-3">
+                                            <div class="text">Ok Count</div>
+                                            <div class="text-info font-weight-bold mt-1">
+                                                <%=machine.production%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-md-6">
+                                    <canvas id="chDonut1_<%=machine.id%>" class="Donut1"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+
+                    </div>
+
+                    <%})%>
+
+
+            </div>
+        </div>
+        <script>
+            const machineData = '<%- JSON.stringify(machineData) %>';
+        </script>
+        <script src="/Js/dashboard.js"></script>
+        <script src="/Js/dashboardChart.js"></script>
+        <%- include("partials/footer")%>

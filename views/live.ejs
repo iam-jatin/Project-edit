@@ -1,0 +1,130 @@
+<%- include("partials/header")%>
+    <%- include("partials/navbar")%>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 col-lg-3 mt-3">
+                    <% let i=0; %>
+                        <%countData.forEach(el=>{i++%>
+                            <div class="card bg-dark mt-3">
+                                <div class="card-header text-center header_one">
+                                    <h4 class="card-title" style="font-size:1.3vw;">
+                                        <%=el.title%> Component Count
+                                    </h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-8 col-sm-8 ">
+                                        <div class="text-center pt-1">
+                                            <div class="d-flex justify-content-between pl-3">
+                                                <div class="card-text primary ">Total Count:</div>
+                                                <div class="pl-2" id="count_<%=i%>">
+                                                    <%=el.count%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center ">
+                                            <div class="d-flex justify-content-between pl-3">
+                                                <div class="card-text danger ">Rejection Count:</div>
+                                                <div class="pl-2" id="rejection_<%=i%>">
+                                                    <%=el.rejectionCount%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center ">
+                                            <div class="d-flex justify-content-between pl-3">
+                                                <div class="card-text success ">Ok Count:</div>
+                                                <div class="pl-2" id="ok_<%=i%>">
+                                                    <%=el.okCount%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col col-md-4 col-sm-4 p-0">
+                                        <div class="donut ">
+                                            <canvas id="chDonut_<%=i%>"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%})%>
+                </div>
+
+                <div class=" col-xs-12 col-md-8 col-lg-9 mt-4">
+                    <div class="main-div history">
+                        <div class="d-flex justify-content-between m-auto">
+
+                            <a class="btn btn-outline-info w-25 mr-2" href="/liveData/<%=Machine_No%>">Live</a>
+                            <a class="btn btn-outline-warning w-25 mr-2 text-warning"
+                                href="/historicalData/<%=Machine_No%>">History</a>
+
+                            <button type="button" class="btn btn-outline-success w-25 mr-2">Tools</button>
+                            <div class="btn-group dropleft m-auto">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Machine
+                                </button>
+                                <div class="dropdown-menu">
+                                    <%machine.forEach(m=>{%>
+                                        <a class="dropdown-item" href="/liveData/<%=m.Machine_ID%>">
+                                            <%=m.Machine_Name%>
+                                        </a>
+                                        <%})%>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="card ">
+                                    <div class="card-body bg-dark">
+                                        <div class="card-header text-center"><i class="fas fa-chart-area"></i> A1
+                                        </div>
+                                        <canvas id="myChart" style="width:100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card ">
+                                    <div class="card-body bg-dark">
+                                        <div class="card-header text-center"><i class="fas fa-chart-bar"></i> A2
+                                        </div>
+                                        <canvas id="myCharts" style="width:100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 s-div">
+                        <div class="card bg-dark">
+                            <div class="d-flex justify-content-end ml-5 m-bar">
+                                <div class="card-header text-center w-100">Hourly Component Count</div>
+                                <div class="btn-group dropleft m-auto">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Select Shift
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <%shift.forEach(s=>{%>
+                                            <a class="dropdown-item" onclick="getShiftData('<%=s.shift_no%>')">
+                                                Shift <%=s.shift_no%>
+                                            </a>
+                                            <%})%>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="bar-chart" style="width:200%;max-width:1200px"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const Machine_No = '<%=Machine_No%>';
+            let firstTime = true;
+            let runShift = '<%=runningShift%>';
+        </script>
+        <script src="/Js/plotLiveChart.js"></script>
+        <script src="/Js/liveChart.js"></script>
+        <%- include("partials/footer")%>
